@@ -1,22 +1,21 @@
-"use strict";
+'use strict';
+let gulp = require ('gulp');
+let scss = require ('gulp-sass');
+let server = require ('browser-sync');
 
-var gulp = require("gulp");
-var sass = require("gulp-sass");
-var server = require("browser-sync");
+gulp.task('css', function () {
+    return gulp.src('scss/style.scss')
+        .pipe(scss())
+    .pipe(gulp.dest('css'))
 
-gulp.task("css", function () {
-    return gulp.src("scss/style.scss")
-        .pipe(sass())
-        .pipe(gulp.dest("css"))
+    
 });
-
-gulp.task("server", function () {
+gulp.task('server', function () {
     server.init({
-        server: ".",
+        server: '',
         notify: false
     });
-    gulp.watch("scss/*{sass,scss}", gulp.series("css")).on("change", server.reload);
-    gulp.watch("*html").on("change", server.reload);
+    gulp.watch('scss/*{sass,scss}', gulp.series('css')).on('change',server.reload);
+    gulp.watch('*.html').on('change',server.reload);
 });
-
-gulp.task("run", gulp.series("server"));
+gulp.task('run', gulp.series('server'));
